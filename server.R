@@ -41,7 +41,7 @@ shinyServer(function(input, output,session) {
       steps = data.frame(position = c("auto","auto","auto","auto","top","auto","top","auto","auto","auto"
                                       ),
                          
-                         element = c(NA,"#board","#hscp","#Pharmacy","#y","#Dates","#c","#Plot","#pharmacyline", "#xx"
+                         element = c(NA,"#board","#hscp","#Pharmacy","#y_measure","#Dates","#c","#Plot","#pharmacyline", "#xx"
                          ),
                          intro = c("The following walk through is designed to help understand how to use this page. Please select at least one pharmacy in order to view the chart. Click on the next button to go to the next instruction. Click back to move to the previous instruction. Click close to close the instructions.",
                                    "This 'Filter by NHS Board' box filters pharmacies by NHS Board. Click on the arrow pointing downwards to view NHS Boards. Click on a NHS Board to select it.",
@@ -152,30 +152,7 @@ shinyServer(function(input, output,session) {
   
 
   
-  AllPharmacies  <- reactive({
-    ContractorActivity %>%
-      filter(Pharmacy %in% input$Pharmacy) %>%
-      select(Date, Pharmacy, input$y) 
-             
-    
-  })
-  
- 
- # function to create dataframe for datatable.
-  
-  AllPharmacies2  <- function(){
-   
-    # set up date for slider.
-    a <- ContractorActivity[ContractorActivity$Date >= input$Dates2[1] & ContractorActivity$Date <= input$Dates2[2] ,]
-    
-    
-     a  %>%
-      select(Date, Pharmacy, input$x) %>%
-      filter(Pharmacy %in% input$Pharmacy2) %>%
-      mutate(Date=format(as.Date(Date), "%b-%Y")) 
-    
-  }
-  
+
   ####observe event to take user to desired tab####
   
   #go to boxplot tab:
@@ -203,25 +180,64 @@ shinyServer(function(input, output,session) {
   ###for the chart
   
   #making hscp choices dependant on board.
+  
   observeEvent(input$board, {
-    updateSelectInput(session,
-                      "hscp",
-                      choices = ContractorActivity$HSCP[ContractorActivity$Healthboard %in% 
-                                                          input$board])
     
+    if("All NHS Boards" %in% input$board){
+    ContractorActivity <- ContractorActivity%>%
+    mutate(Healthboard = "All NHS Boards")%>%
+    mutate(HSCP = "All HSCPS")}
+
+
+     else{
+     ContractorActivity
+
+    }
+    
+    ContractorActivity <- ContractorActivity %>%
+      filter(Healthboard %in% input$board)
+    
+      hscps <- unique(ContractorActivity$HSCP)
+      
+ 
+    
+      updateSelectInput(session,
+                        "hscp",
+                        choices = hscps)
+
   })
   
   
   
   #making pharmacy choices dependant on hscp.
   observeEvent(input$hscp,{
-    updateSelectizeInput(session,
-                         "Pharmacy",
-                         choices = ContractorActivity$Pharmacy[ContractorActivity$HSCP %in% 
-                                                                 input$hscp])
+    
+     if("All HSCPS" %in% input$hscp){
+    ContractorActivity <- ContractorActivity%>%
+      mutate(Healthboard = "All NHS Boards")%>%
+      mutate(HSCP = "All HSCPS")}
+
+     else{
+       ContractorActivity
+    
+      }
+
+    
+    ContractorActivity <- ContractorActivity %>%
+      filter(HSCP %in% input$hscp)
+    
+    pharmacies <- unique(ContractorActivity$Pharmacy)
+    
+      updateSelectizeInput(session,
+                           "Pharmacy",
+                           choices = pharmacies)
+    
+    
+    
+    
   })
   
-  
+ 
   
   
   
@@ -231,22 +247,87 @@ shinyServer(function(input, output,session) {
   ##for the table
   #making hscp choices dependant on board.
   observeEvent(input$board2,{
+    
+    if("All NHS Boards" %in% input$board2){
+      ContractorActivity <- ContractorActivity%>%
+        mutate(Healthboard = "All NHS Boards")%>%
+        mutate(HSCP = "All HSCPS")}
+    
+    
+    else{
+      ContractorActivity
+      
+    }
+    
+    ContractorActivity <- ContractorActivity %>%
+      filter(Healthboard %in% input$board2)
+    
+    hscps <- unique(ContractorActivity$HSCP)
+    
     updateSelectizeInput(session,
                          "hscp2",
-                         choices = ContractorActivity$HSCP[ContractorActivity$Healthboard %in% 
-                                                             input$board2])
+                         choices = hscps)
   })
   
   
   
   #making pharmacy choices dependant on hscp.
   observeEvent(input$hscp2,{
+    
+    if("All HSCPS" %in% input$hscp2){
+      ContractorActivity <- ContractorActivity%>%
+        mutate(Healthboard = "All NHS Boards")%>%
+        mutate(HSCP = "All HSCPS")}
+    
+    else{
+      ContractorActivity
+      
+    }
+    
+    
+    ContractorActivity <- ContractorActivity %>%
+      filter(HSCP %in% input$hscp2)
+    
+    pharmacies <- unique(ContractorActivity$Pharmacy)
+    
+    
     updateSelectizeInput(session,
                          "Pharmacy2",
-                         choices = ContractorActivity$Pharmacy[ContractorActivity$HSCP %in% 
-                                                                 input$hscp2])
+                         choices = pharmacies)
     
   })
+  
+  
+  AllPharmacies  <- function(){
+    
+    
+    AllPharmacies <- ContractorActivity
+    
+    # set up Date for slider.
+    AllPharmacies <- AllPharmacies[AllPharmacies$Date >= input$Dates[1] & AllPharmacies$Date <= input$Dates[2] ,]
+    
+    AllPharmacies %>%
+      filter(Pharmacy %in% input$Pharmacy) %>%
+      select(Date, Pharmacy, input$y) 
+    
+    
+  }
+  
+  
+  # function to create dataframe for datatable.
+  
+  AllPharmacies2  <- function(){
+    
+    # set up date for slider.
+    a <- ContractorActivity[ContractorActivity$Date >= input$Dates2[1] & ContractorActivity$Date <= input$Dates2[2] ,]
+    
+    
+    a  %>%
+      select(Date, Pharmacy, input$x) %>%
+      filter(Pharmacy %in% input$Pharmacy2) %>%
+      mutate(Date=format(as.Date(Date), "%b-%Y")) 
+    
+  }
   
 
   
@@ -257,10 +338,11 @@ shinyServer(function(input, output,session) {
   #create a reactive plot.
   plot <- reactive({  
     
-    # set up Date for slider.
-    AllPharmacies <- AllPharmacies()[AllPharmacies()$Date >= input$Dates[1] & AllPharmacies()$Date <= input$Dates[2] ,]
+   
     
 
+
+    AllPharmacies <- AllPharmacies()
     
     #rename datatable coloum names with spaces and £ sign for cost.
     names <- ifelse(input$y == "Cost", "Cost (£)",
@@ -280,6 +362,12 @@ shinyServer(function(input, output,session) {
            ifelse(input$y =="MASRegistrations","MAS Registrations",
            ifelse(input$y =="CMSRegistrations","CMS Registrations",
             "Items"))))))))))))))))
+    
+   
+  
+    
+   
+   
     
     #creating a ggplot for the line chart.
     p <- ggplot() +
@@ -327,10 +415,22 @@ shinyServer(function(input, output,session) {
     #ifelse(input$c=="Blues",Blues,Colours))
 
 
-   p
+
+    
+    
+    #if(!isTruthy(input$Pharmacy)){
+      
+    # if(input$Pharmacy %in% AllPharmacies){
+    #  p}
+    #  else {
+    #    p <- NULL }
+    # 
+    
   })
   
 
+  
+  
   
 #render plot
   output$pharmacyline <- renderPlotly({

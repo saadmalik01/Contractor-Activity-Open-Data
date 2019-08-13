@@ -356,37 +356,37 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                       #select pharmacy using select input.
                       column(4, 
                              div(id='board',
-                             selectInput(inputId='board', 
+                             selectInput(inputId='board',
                                          label='Filter by NHS Board:',
                                          choices= AllHBs)),
+
                              
-                             
-                          #   selectInput("board",
-                           #              "Filter by Healthboard:",
-                            #             choice = c('All Healthboards' = '', AllHBs), 
-                             #            multiple = FALSE,
-                              #           selected = NULL),
+                            # selectInput("board",
+                            #            "Filter by NHS Board:",
+                            #           choices = c('All NHS Boards',AllHBs),
+                            #          multiple = FALSE,
+                            #         selected = "All NHS Boards")),
                                  
                              
                            
                           div(id='hscp',
-                             selectInput(inputId='hscp', 
+                             selectInput(inputId='hscp',
                                          label='Filter by Health and Social Care Partnership:',
                                          choices= c(AllHSCPs))
                              ),
                                          
-                           #  selectInput("hscp",
-                            #             "Filter by Health and Social Care Partnership:",
-                             #             choice = c('All HSCPS' = '', AllHSCPs), 
-                              #            multiple = FALSE,
-                               #           selected = NULL),             
+                            # selectInput("hscp",
+                            #            "Filter by Health and Social Care Partnership:",
+                            #            choices = c('All HSCPS',AllHSCPs),
+                            #           multiple = FALSE,
+                            #          selected = NULL)),
                       
                              
                           div(id='Pharmacy',
                              selectizeInput(inputId = "Pharmacy",
                                             label = "Select Pharmacy:",
                                             choices =  AllPharmacies, 
-                                            selected = "ASDA STORES LIMITED-PHARMACY DEPARTMENT-G33 1AD",
+                                        #    selected = "ASDA STORES LIMITED-PHARMACY DEPARTMENT-G33 1AD",
                                             multiple=TRUE,
                                             options = list(maxItems = 5L, placeholder = 'Type name or postcode of pharmacy')))
                              #
@@ -412,7 +412,7 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                             #             c(Choose='', lab_choices),
                              #            selectize=TRUE),
                              
-                          div(id='y',
+                          div(id='y_measure',
                              selectInput(inputId='y', 
                                          label='Select Measure:',
                                          choices= lab_choices)),

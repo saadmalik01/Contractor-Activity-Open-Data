@@ -17,6 +17,7 @@ library(htmltools)
 library(shinyWidgets)
 library(leaflet.extras)
 library(stringr) #wrap pharmacy name.
+library(shinyjs) # for onclick
 
 library(rintrojs)
         
@@ -36,14 +37,14 @@ ContractorActivityM <- ContractorActivityM %>%
 
 #Create a function which creates all unique pharmacies.
 AllPharmacies <- sort(unique(ContractorActivity$Pharmacy)) 
-AllHBs <- sort(unique(ContractorActivity$Healthboard)) 
-AllHSCPs <- sort(unique(ContractorActivity$HSCP)) 
+AllHBs <- c("All NHS Boards",sort(unique(ContractorActivity$Healthboard))) 
+AllHSCPs <- c("All HSCPS",sort(unique(ContractorActivity$HSCP))) 
   
 
 #ContractorActivityM$dategroup <- as.factor(as.yearqtr(ContractorActivityM$dategroup))
 #AllDates <- sort(unique(ContractorActivityM$dategroup)) 
 
-
+'%!in%' <- function(x,y)!('%in%'(x,y))
 
 AllDates <- ContractorActivityM %>%
   distinct(dategroup) %>%
@@ -116,4 +117,6 @@ lab_choices2 = c(
   "Final Payments (£)" = "FinalPayments",
   "Supervision Dispensing Fee Number"= "SupervisionDispensingFeeNumber",
   "Supervision Fee Rate"="SupervisionFeeRate")
+
+
   
