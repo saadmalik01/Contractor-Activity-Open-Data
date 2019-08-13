@@ -265,11 +265,11 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                                         "nss.isdprescribing@nhs.net")),
                                       " and we will be happy to help."),
                              
-                             tags$div( 
-                               HTML(paste("", tags$span(style="color:red", #used to color the writing as red
-                                                        tags$strong("Beta version of app for user testing only"), sep = "")))
-                               
-                             ),
+                             # tags$div( 
+                             #   HTML(paste("", tags$span(style="color:red", #used to color the writing as red
+                             #                            tags$strong("Beta version of app for user testing only"), sep = "")))
+                             #   
+                             # ),
                              
                              h4("Explore the data:", id="one"),
                              
