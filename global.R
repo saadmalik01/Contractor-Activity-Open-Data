@@ -36,7 +36,7 @@ ContractorActivityM <- ContractorActivityM %>%
   unite(dategroup, months, year, sep = " ")
 
 #Create a function which creates all unique pharmacies.
-AllPharmacies <- sort(unique(ContractorActivity$Pharmacy)) 
+AllPharmacies <- as.character(sort(unique(ContractorActivity$Pharmacy))) 
 AllHBs <- c("All NHS Boards",sort(unique(ContractorActivity$Healthboard))) 
 AllHSCPs <- c("All HSCPS",sort(unique(ContractorActivity$HSCP))) 
   

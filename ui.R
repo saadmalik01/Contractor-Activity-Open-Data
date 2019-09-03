@@ -9,6 +9,16 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                  
       #### styling ####
       
+      
+      #### colour active tab ####
+      # solution: https://stackoverflow.com/questions/35025145/background-color-of-tabs-in-shiny-tabpanel/43201952#43201952
+      
+      tags$style(HTML("
+                      
+                      .tabbable > .nav > li[class=active]    > a {background-color: #4C8CBF; color:white}
+                      ")),
+      
+      
                   tags$style(type = "text/css", "#map {height: calc(100vh - 80px) !important;}"),
                   
                    tags$style(
@@ -220,10 +230,13 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                                                       #### Introduction ####
                     
                     
-                   
+                 
+                    
                      tabPanel(
                       "Introduction",id="intro",icon = icon("info-circle"), #logo for introduction tab
                              
+                      
+                    
                              # writing for the landing page.
                      
                              column(2,
@@ -237,14 +250,14 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                              h4("What does this application show?"),
                                     
                                     p("This application contains information on all pharmacies in Scotland. 
-                                      'Contruct a Chart' allows for the selection of up to five pharmacies and compare 
+                                      'Construct a Chart' allows for the selection of up to five pharmacies and compare 
                                        pharmacy activity across a range of measures. 'Populate a Map' shows 
-                                      activity for all pharmacies in Scotland by financial quarter. 'Create a table' allows for the selection 
-                                      of mutliple pharmacies and mutiple measures. The table can be downloaded as a CSV."), 
+                                       all pharmacies in Scotland on a map. The map shows activity for all pharmacies by measure and financial quarter. 'Create a table' allows the selection 
+                                       of multiple pharmacies and multiple measures for the selected pharmacies. This information is shown on a table which can be downloaded as a .csv."), 
                                     
                                     
-                                    p("The application contains a number of measures. Please refer to the glossary 
-                                      tab to find the meaning of each term."),
+                                    p("The application contains a number of measures. Please refer to the 'Glossary of terms' 
+                                      to find the meaning of each term."),
 
                              tags$style(HTML('#introhelp { margin-bottom: 30px}')),
                              splitLayout(cellWidths = c("4%", "96%"), 
@@ -265,11 +278,13 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                                         "nss.isdprescribing@nhs.net")),
                                       " and we will be happy to help."),
                              
-                             # tags$div( 
-                             #   HTML(paste("", tags$span(style="color:red", #used to color the writing as red
-                             #                            tags$strong("Beta version of app for user testing only"), sep = "")))
-                             #   
-                             # ),
+                           
+                          
+                                    tags$div(
+                                      HTML(paste("", tags$span(style="color:red", #used to color the writing as red
+                                                               tags$strong("This tool is slower on older versions of Internet Explorer. It is recommended that Chrome, Firefox or Microsoft Edge is used."), sep = "")))
+                                      
+                                    ),
                              
                              h4("Explore the data:", id="one"),
                              
@@ -284,7 +299,7 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                                             div("Construct a Chart", class = "landing-page-box-title"),
                                             div(class = "landing-page-icon", style="background-image: url(line.png);
                                                 background-size: auto 80%; background-position: center; background-repeat: no-repeat; "),
-                                            actionButton('trendtablink', 'See pharmacy trends across time.', 
+                                            actionButton('trendtablink', 'See pharmacy trends across time', 
                                                          class="landing-page-button", 
                                                          icon = icon("arrow-circle-right", "icon-lp"))))),  
                              
@@ -295,7 +310,7 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                                             div("Populate a Map", class = "landing-page-box-title"),
                                             div(class = "landing-page-icon", style="background-image: url(map2.png);
                                                 background-size: auto 80%; background-position: center; background-repeat: no-repeat; "),
-                                            actionButton('maptablink', 'Observe pharmacy activity on a map.', 
+                                            actionButton('maptablink', 'Observe pharmacy activity on a map', 
                                                          class="landing-page-button", 
                                                          icon = icon("arrow-circle-right", "icon-lp"))))
                                     ),
@@ -307,17 +322,23 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                                             div("Create a table", class = "landing-page-box-title"),
                                             div(class = "landing-page-icon", style="background-image: url(table.png);
                                                 background-size: auto 80%; background-position: center; background-repeat: no-repeat; "),
-                                            actionButton('tabletablink', 'Get information on mutiple pharmacies and download the information as a csv.', 
+                                            actionButton('tabletablink', 'Get information on multiple pharmacies and download the information as a .csv', 
                                                          class="landing-page-button", 
                                                          icon = icon("arrow-circle-right", "icon-lp"))))) 
                              
                              
                                     
                                     
-                                    )),
-                    
-       
+                                    )
                       
+                      
+                      
+                      
+                      
+                      
+                      ),
+                    
+                  
                       
                     
                       
@@ -328,13 +349,13 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                    
                      
                       
-                    tabPanel("Contruct a Chart",id="line",icon = icon("line-chart"),
+                    tabPanel("Construct a Chart",id="line",icon = icon("line-chart"),
                              
                              column(12, 
                                     
                                     h3("Trend by month"),
                                     h5("
-                                    The generated chart shows pharmacy activity on the selected measure across the chosen timeperiod.
+                                    This page generates a chart showing activity for the selected pharmacies, measure and time period.
                                     ")
                                    
                                     
@@ -469,7 +490,7 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                              column(10, 
                                     
                                     h3("Map by quarter"),
-                                    h5("The map shows pharmacy activity for the selected time period and measure.
+                                    h5("This page populates a map of Scotland. It shows activity for all pharmacies in Scotland broken down by selected time period and measure.
                                        ")
                                     
                                     
@@ -569,7 +590,7 @@ shinyUI(fluidPage(theme = shinytheme("lumen"),
                               column(10, 
                                      
                                      h3("Datatable"),
-                                     h5("The generated data table shows pharmacy activity for mutiple measures for the selected time period.
+                                     h5("This page creates a table. The table shows activity for the selected pharmacies, measure(s) and time period. The table can be downloaded as a .csv.
                                         
                                        
           

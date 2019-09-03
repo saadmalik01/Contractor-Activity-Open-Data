@@ -26,8 +26,8 @@ shinyServer(function(input, output,session) {
       element = c(NA,"#tabs","#introbox1", "#xx"
       ),
       intro = c("The following walk through is designed to help understand how to use this page. Click on the next button to go to the next instruction. Click back to move to the previous instruction. Click close to close the instructions.",
-                "Each tab can be selected by clicking on the button for the tab.",
-                "Another way to jump to the desired tab is to click the relevant box for the tab.",
+                "This section of the app displays all the different pages available for view. Each page can be selected by clicking on the button for the page. The selected page is highlighted as blue. Page view can be switched at any time.",
+                "It is also possible to jump to the desired page by clicking on the relevant box for the page.",
                 "This concludes the walk through for this page. Click on 'Done' to close this box."))
     ))
     
@@ -44,14 +44,14 @@ shinyServer(function(input, output,session) {
                          element = c(NA,"#board","#hscp","#Pharmacy","#y_measure","#Dates","#c","#Plot","#pharmacyline", "#xx"
                          ),
                          intro = c("The following walk through is designed to help understand how to use this page. Please select at least one pharmacy in order to view the chart. Click on the next button to go to the next instruction. Click back to move to the previous instruction. Click close to close the instructions.",
-                                   "This 'Filter by NHS Board' box filters pharmacies by NHS Board. Click on the arrow pointing downwards to view NHS Boards. Click on a NHS Board to select it.",
-                                   "This 'Filter by Health and Social Care Partnership' box filters pharmacies by Health and Social Care Partnership (HSCP). Click on the arrow pointing downwards to view HSCPs. HSCPs belonging to the NHS board selected via 'Filter by NHS Board' will appear in this box. Click on a HSCP to select it.",
-                                   "Type the name or postcode of the pharmacy here. Pharmacies belonging to the HSCP selected via the 'Filter by Health and Social Care Partnership' will appear in this box. At least one pharmacy has to be selected in order to generate the chart. A maximum number of five pharmacies can be shown on the chart.",
+                                   "The 'Filter by NHS Board' box filters pharmacies by NHS Board. Click on the arrow pointing downwards to view NHS Boards. Click on a NHS Board to select it.",
+                                   "The 'Filter by Health and Social Care Partnership' box filters pharmacies by Health and Social Care Partnership (HSCP). HSCPs belonging to the NHS board selected via 'Filter by NHS Board' will appear in this box. Click on the arrow pointing downwards to view HSCPs. Click on a HSCP to select it.",
+                                   "The 'Select Pharmacy' box allows for the selection of pharmacies to be displayed on the chart. Pharmacies located in the selected HSCP will be displayed in this box. All pharmacies in Scotland will be displayed if 'All HSCPS' is selected. A new chart generates once pharmacies have been selected. The chart can contain a maximum number of five pharmacies at any one time.",
                                    "The 'Select Measure' box selects the measure to be displayed on the chart.",
                                    "This is a date slider. Drag the circles on either side to choose a date range.",
-                                   "This selects the colour pallete for the chart. 'Blues' shows pharmacies in varying shades of blue. 'Colours' shows pharmacies in differrent colours.",
-                                   "Click on 'Download Chart' to download the chart as a png.",
-                                   "This is a line chart which shows pharmacy trends for the selected time period and measure. It will be generated when one or more pharmacies have been selected via the 'Select Pharmacy' box.",
+                                   "This selects the colour palette for the chart. 'Blues' shows pharmacies in varying shades of blue. 'Colours' shows pharmacies in different colours and is colour blind friendly.",
+                                   "Click on 'Download Chart' to download the displayed chart as a .png.",
+                                   "This is a 'trend over time' chart which shows trends in pharmacy activity for the selected time period and measure. Hover over a line at a given time point on the chart to get more information on pharmacy activity for the time point. The chart will be generated when one or more pharmacies have been selected via the 'Select Pharmacy' box.",
                                    "This concludes the walk through for this page. Click on 'Done' to close this box."))
     ))
     
@@ -68,8 +68,8 @@ shinyServer(function(input, output,session) {
       element = c(NA,"#Dates3","#y2","#map","#xx"
       ),
       intro = c("The following walk through is designed to help understand how to use this page. Click on the next button to go to the next instruction. Click back to move to the previous instruction. Click close to close the instructions.",
-                "The 'Select time period' box shows the three months for which pharmacy activity can be seen on the map. Click on the arrow pointing downwards to view all the avaialble time periods. Click on a time period to select it.",
-                "The 'Select Measure' box shows the selected measure. At least on measure needs to be selected to show pharmacies on the map. Click on the arrow pointing downwards to view all available measures. Click on a measure to select it.",
+                "The 'Select time period' box shows the three months for which pharmacy activity can be seen on the map. Click on the arrow pointing downwards to view all the available time periods. Click on a time period to select it.",
+                "The 'Select Measure' box shows the selected measure. At least on measure needs to be selected to show pharmacies on Scotland's map. Click on the arrow pointing downwards to view all available measures. Click on a measure to select it.",
                 "The map shows activity for all pharmacies in Scotland for the selected time period and measure. Each pharmacy is represented as a circle on the map. Drag the map by holding on to the right click button on the mouse and moving the mouse in the desired direction. Click the ' + ' button to zoom into the map. Click ' - ' to zoom out of the map. The zoom function also works by scrolling the mouse. High activity is represented by darker shades of orange. Low activity is represented by lighter shades of orange.", 
                 "This concludes the walk through for this page. Click on 'Done' to close this box."
                 ))
@@ -88,16 +88,16 @@ shinyServer(function(input, output,session) {
       element = c(NA,"#board2","#hscp2","#Pharmacy2","#x","#Dates2","#downloaddata","#pharmacytable", "#xx"
       ),
       intro = c("The following walk through is designed to help understand how to use this page. Please note that at least one pharmacy and one measure need to be selected in order to generate the table. Click on the next button to go to the next instruction. Click back to move to the previous instruction. Click close to close the instructions.",
-                "This 'Filter by NHS Board' box filters pharmacies by NHS Board. Click on the arrow pointing downwards to view NHS Boards. Click on a NHS Board to select it.",
-                "This 'Filter by Health and Social Care Partnership' box filters pharmacies by Health and Social Care Partnership (HSCP). Click on the arrow pointing downwards to view HSCPs. HSCPs belonging to the NHS board selected via 'Filter by NHS Board' will appear in this box. Click on a HSCP to select it.",
-                "Type the name or postcode of the pharmacy here. Pharmacies belonging to the HSCP selected via the 'Filter by Health and Social Care Partnership' will appear in this box. At least one pharmacy has to be selected in order to generate the chart.",
+                "The 'Filter by NHS Board' box filters pharmacies by NHS Board. Click on the arrow pointing downwards to view NHS Boards. Click on a NHS Board to select it.",
+                "The 'Filter by Health and Social Care Partnership' box filters pharmacies by Health and Social Care Partnership (HSCP). HSCPs belonging to the NHS board selected via 'Filter by NHS Board' will appear in this box. Click on the arrow pointing downwards to view HSCPs. Click on a HSCP to select it.",
+                "The 'Select Pharmacy' box allows for the selection of pharmacies to be displayed on the table. Pharmacies located in the selected HSCP will be displayed in this box. All pharmacies in Scotland will be displayed if 'All HSCPS' is selected. The table generates once pharmacies have been selected.",
 
                 
-                "This 'Select Measure' box selects one or more measures to be displayed in the data table. At least one measure needs to be selected to generate the data table.",
+                "The 'Select Measure' box selects one or more measures to be displayed in the table. At least one measure needs to be selected to generate the table.",
                 "This is a date slider. Drag the circles on either side to choose a date range.",
-                "Clicking the 'Download Data' button downloads the data table as a CSV.",
+                "Click the 'Download Data' button to download the displayed table as a .CSV.",
                
-                "This is the the data table. The table will be generated when one or more measures have been selected in the 'Select Measure' box and one or more pharmacies have been selected in 'Select Pharmacy' box.",
+                "This is the table. The table will be generated when one or more measures have been selected in the 'Select Measure' box and one or more pharmacies have been selected in 'Select Pharmacy' box.",
                 "This concludes the walk through for this page. Click on 'Done' to close this box."))
     ))
     
@@ -212,21 +212,18 @@ shinyServer(function(input, output,session) {
   #making pharmacy choices dependant on hscp.
   observeEvent(input$hscp,{
     
-     if("All HSCPS" %in% input$hscp){
-    ContractorActivity <- ContractorActivity%>%
-      mutate(Healthboard = "All NHS Boards")%>%
-      mutate(HSCP = "All HSCPS")}
-
-     else{
-       ContractorActivity
+    if("All HSCPS" %in% input$hscp){
+      ContractorActivity <- ContractorActivity%>%
+        select(Pharmacy)}
     
-      }
-
+    else{
+      ContractorActivity <- ContractorActivity %>%
+        filter(HSCP %in% input$hscp)%>%
+        select(Pharmacy)
+    }
     
-    ContractorActivity <- ContractorActivity %>%
-      filter(HSCP %in% input$hscp)
     
-    pharmacies <- unique(ContractorActivity$Pharmacy)
+   pharmacies <- unique(ContractorActivity$Pharmacy)
     
       updateSelectizeInput(session,
                            "Pharmacy",
@@ -274,19 +271,15 @@ shinyServer(function(input, output,session) {
   #making pharmacy choices dependant on hscp.
   observeEvent(input$hscp2,{
     
-    if("All HSCPS" %in% input$hscp2){
+    if("All HSCPS" %in% input$hscp){
       ContractorActivity <- ContractorActivity%>%
-        mutate(Healthboard = "All NHS Boards")%>%
-        mutate(HSCP = "All HSCPS")}
+        select(Pharmacy)}
     
     else{
-      ContractorActivity
-      
+      ContractorActivity <- ContractorActivity %>%
+        filter(HSCP %in% input$hscp2)%>%
+        select(Pharmacy)
     }
-    
-    
-    ContractorActivity <- ContractorActivity %>%
-      filter(HSCP %in% input$hscp2)
     
     pharmacies <- unique(ContractorActivity$Pharmacy)
     
@@ -297,7 +290,7 @@ shinyServer(function(input, output,session) {
     
   })
   
-  
+
   AllPharmacies  <- function(){
     
     
@@ -335,6 +328,7 @@ shinyServer(function(input, output,session) {
   
 
   
+  
   #create a reactive plot.
   plot <- reactive({  
     
@@ -343,6 +337,9 @@ shinyServer(function(input, output,session) {
 
 
     AllPharmacies <- AllPharmacies()
+    
+
+    
     
     #rename datatable coloum names with spaces and £ sign for cost.
     names <- ifelse(input$y == "Cost", "Cost (£)",
@@ -363,22 +360,18 @@ shinyServer(function(input, output,session) {
            ifelse(input$y =="CMSRegistrations","CMS Registrations",
             "Items"))))))))))))))))
     
+
    
-  
-    
-   
-   
-    
     #creating a ggplot for the line chart.
     p <- ggplot() +
-      geom_line(data=AllPharmacies, aes(x=Date, y=get(input$y),
+      geom_line(data=AllPharmacies, aes(x=Date, y=get0(input$y),
                                                group=Pharmacy, 
                                                colour=str_wrap(Pharmacy,20), 
                                         text = paste("Pharmacy",":",str_wrap(Pharmacy,30),
                                                      '<br>',
                                                      "Date",":",as.yearmon(Date),
                                                      '<br>',
-                                                     input$y,":", get(input$y))),size=0.7) +   
+                                                     input$y,":", get0(input$y))),size=0.7) +   
       #geom_point(size=1) +
       theme_bw() +
       #theme(axis.text.x = element_text(size=8, angle = 90,hjust=0)) +
@@ -418,13 +411,7 @@ shinyServer(function(input, output,session) {
 
     
     
-    #if(!isTruthy(input$Pharmacy)){
-      
-    # if(input$Pharmacy %in% AllPharmacies){
-    #  p}
-    #  else {
-    #    p <- NULL }
-    # 
+
     
   })
   
