@@ -31,14 +31,15 @@ options("scipen"=10)
 # Section 2 - Create the main file   ----
 
 # download and combine all datasets to create the full 'Contractor Activity' file ####
-
+opendata_filpath <- "https://www.opendata.nhs.scot/dataset/a86fee95-8f92-443a-8ca4-9e814557f3a5/resource/"
+  
 #Download the data using urls provided on the open data website.
-ContractorActivity2014 <- "https://www.opendata.nhs.scot/dataset/a86fee95-8f92-443a-8ca4-9e814557f3a5/resource/9c22675d-c83f-4245-a0bd-0f1de64fa145/download/contractor-activity-2014.csv"
-ContractorActivity2015 <- "https://www.opendata.nhs.scot/dataset/a86fee95-8f92-443a-8ca4-9e814557f3a5/resource/324c5d87-5d95-41aa-be38-140328d40b73/download/contractor-activity-2015.csv"
-ContractorActivity2016 <- "https://www.opendata.nhs.scot/dataset/a86fee95-8f92-443a-8ca4-9e814557f3a5/resource/0ae561a7-e861-4854-8017-966bc6ad5eaf/download/contractor-activity-2016.csv" 
-ContractorActivity2017 <- "https://www.opendata.nhs.scot/dataset/a86fee95-8f92-443a-8ca4-9e814557f3a5/resource/61f6e164-8e7e-4282-b691-50fbb14fd11c/download/contractor-activity-2017.csv"
-ContractorActivity2018 <- "https://www.opendata.nhs.scot/dataset/a86fee95-8f92-443a-8ca4-9e814557f3a5/resource/a3484d2f-f744-4d20-876c-6e3db2909db6/download/contractor-activity-2018.csv"
-ContractorActivity2019 <- "https://www.opendata.nhs.scot/dataset/a86fee95-8f92-443a-8ca4-9e814557f3a5/resource/80274dba-3cca-4e31-8d0c-0a90c1ae46da/download/contractor-activity-2019.csv"
+ContractorActivity2014 <- paste0(opendata_filpath,"9c22675d-c83f-4245-a0bd-0f1de64fa145/download/contractor-activity-2014.csv")
+ContractorActivity2015 <- paste0(opendata_filpath,"324c5d87-5d95-41aa-be38-140328d40b73/download/contractor-activity-2015.csv")
+ContractorActivity2016 <- paste0(opendata_filpath,"0ae561a7-e861-4854-8017-966bc6ad5eaf/download/contractor-activity-2016.csv") 
+ContractorActivity2017 <- paste0(opendata_filpath,"61f6e164-8e7e-4282-b691-50fbb14fd11c/download/contractor-activity-2017.csv")
+ContractorActivity2018 <- paste0(opendata_filpath,"a3484d2f-f744-4d20-876c-6e3db2909db6/download/contractor-activity-2018.csv")
+ContractorActivity2019 <- paste0(opendata_filpath,"80274dba-3cca-4e31-8d0c-0a90c1ae46da/download/contractor-activity-2019.csv")
 
 
 #read the file into r and create a dataframe for each year.
@@ -70,7 +71,9 @@ PC8 <- read_excel("Data/PC8.xlsx")
 contractor_code_with_postcode <- read_excel("Data/Pharmacy postcode Sept 18.xlsx")
 
 # rename variables.
-colnames(contractor_code_with_postcode) <- c("Contractor", "Healthboard","HSCP","PharmacyName", "PharmacyAddress1","PharmacyAddress2","PharmacyAddress3","PharmacyAddress4", "pc8")
+colnames(contractor_code_with_postcode) <- c("Contractor", "Healthboard","HSCP","PharmacyName",
+                                             "PharmacyAddress1","PharmacyAddress2",
+                                             "PharmacyAddress3","PharmacyAddress4", "pc8")
 
 
 #ensure equal spaces between first and second part of each postcode # 
@@ -110,7 +113,16 @@ ContractorActivity <- left_join(ContractorActivity, Postcodes, by = "Contractor"
 #### prepare data for 'construct a chart' and 'create a datatable' ####
 
 #rename variable names in the dataset. 
-colnames(ContractorActivity) <- c("Date", "Pharmacy", "Items", "Cost", "MASItems", "MASRegistrations", "MASCapitationPayment","CMSItems","CMSRegistrations","CMSCapitationPayment","EHCItems","SmokingCessationItems","SmokingCessationPayment","InstalmentDispensings","MethadoneDispensingFeeNumber","MethadoneDispensingFeeRate","SupervisionDispensingFeeNumber","SupervisionFeeRate","FinalPayments","Postcode","Latitude","Longitude","Healthboard","HSCP","PharmacyName","PharmacyAddress1","PharmacyAddress2","PharmacyAddress3","PharmacyAddress4")
+colnames(ContractorActivity) <- c("Date", "Pharmacy", "Items", "Cost", "MASItems",
+                                  "MASRegistrations", "MASCapitationPayment","CMSItems",
+                                  "CMSRegistrations","CMSCapitationPayment","EHCItems",
+                                  "SmokingCessationItems","SmokingCessationPayment",
+                                  "InstalmentDispensings","MethadoneDispensingFeeNumber",
+                                  "MethadoneDispensingFeeRate","SupervisionDispensingFeeNumber",
+                                  "SupervisionFeeRate","FinalPayments","Postcode","Latitude",
+                                  "Longitude","Healthboard","HSCP","PharmacyName",
+                                  "PharmacyAddress1","PharmacyAddress2","PharmacyAddress3",
+                                  "PharmacyAddress4")
 
 #replace NAs values with blanks.
 ContractorActivity[is.na(ContractorActivity)] <- " "
@@ -127,10 +139,11 @@ ContractorActivity$FinalPayments <- formatC(ContractorActivity$FinalPayments, fo
 
 
 #list of variables to be turned into numerics, needed to create line chart and data table.
-turn_to_numeric <- c("Items","Cost","MASItems","MASRegistrations","MASCapitationPayment","CMSItems","CMSRegistrations",
-                     "CMSCapitationPayment","EHCItems","SmokingCessationItems","SmokingCessationPayment","InstalmentDispensings",
-                     "MethadoneDispensingFeeNumber","SupervisionDispensingFeeNumber","FinalPayments",
-                     "Latitude","Longitude")
+turn_to_numeric <- c("Items","Cost","MASItems","MASRegistrations","MASCapitationPayment",
+                     "CMSItems","CMSRegistrations","CMSCapitationPayment","EHCItems",
+                     "SmokingCessationItems","SmokingCessationPayment","InstalmentDispensings",
+                     "MethadoneDispensingFeeNumber","SupervisionDispensingFeeNumber",
+                     "FinalPayments","Latitude","Longitude")
 
 #turn the variables in the list created above into numerics.
 ContractorActivity[c(turn_to_numeric)] <- sapply(ContractorActivity [turn_to_numeric],as.numeric)
