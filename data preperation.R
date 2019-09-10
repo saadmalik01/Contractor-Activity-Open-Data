@@ -109,7 +109,7 @@ ContractorActivity <- left_join(ContractorActivity, Postcodes, by = "Contractor"
 
 #### prepare data for 'construct a chart' and 'create a datatable' ####
 
-#rename the dataset. 
+#rename variable names in the dataset. 
 colnames(ContractorActivity) <- c("Date", "Pharmacy", "Items", "Cost", "MASItems", "MASRegistrations", "MASCapitationPayment","CMSItems","CMSRegistrations","CMSCapitationPayment","EHCItems","SmokingCessationItems","SmokingCessationPayment","InstalmentDispensings","MethadoneDispensingFeeNumber","MethadoneDispensingFeeRate","SupervisionDispensingFeeNumber","SupervisionFeeRate","FinalPayments","Postcode","Latitude","Longitude","Healthboard","HSCP","PharmacyName","PharmacyAddress1","PharmacyAddress2","PharmacyAddress3","PharmacyAddress4")
 
 #replace NAs values with blanks.
@@ -124,9 +124,9 @@ ContractorActivity$MASCapitationPayment <- formatC(ContractorActivity$MASCapitat
 ContractorActivity$CMSCapitationPayment <- formatC(ContractorActivity$CMSCapitationPayment, format="f", digits=0)
 ContractorActivity$SmokingCessationPayment <- formatC(ContractorActivity$SmokingCessationPayment, format="f", digits=0)
 ContractorActivity$FinalPayments <- formatC(ContractorActivity$FinalPayments, format="f", digits=0)
-####
 
-#list of variables to be turned into numerics.
+
+#list of variables to be turned into numerics, needed to create line chart and data table.
 turn_to_numeric <- c("Items","Cost","MASItems","MASRegistrations","MASCapitationPayment","CMSItems","CMSRegistrations",
                      "CMSCapitationPayment","EHCItems","SmokingCessationItems","SmokingCessationPayment","InstalmentDispensings",
                      "MethadoneDispensingFeeNumber","SupervisionDispensingFeeNumber","FinalPayments",
@@ -176,7 +176,7 @@ ContractorActivity<- ContractorActivity%>%
   ungroup()
 
 
-# modify duplicates with the same postocde, latitude and longitude so that pharmacies with the same postcode donest overlap on map.
+# modify duplicates with the same postocde, latitude and longitude so that pharmacies with the same postcode do not overlap on map.
 ContractorActivity <- ContractorActivity %>%
   arrange(Postcode,Date) %>% 
   mutate(x = paste(Postcode,Date)) %>% #these two variables are being dupilcated so we combine them.
