@@ -158,7 +158,7 @@ shinyServer(function(input, output,session) {
   #go to boxplot tab:
   observeEvent(input$trendtablink, {
     
-    updateTabsetPanel(session, "tabs",selected = "Contruct a Chart")
+    updateTabsetPanel(session, "tabs",selected = "Construct a Chart")
   })
   
   #go to trend tab.
